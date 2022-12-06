@@ -35,6 +35,7 @@
  *-------------------------------------------------------------
  */
 
+
 module user_proj_airisc #(
     parameter BITS = 32
 )(
@@ -68,16 +69,17 @@ module user_proj_airisc #(
     // IRQ
     output [2:0] irq
 );
-    wire clk;
-    wire rst;
 
-    wire [`MPRJ_IO_PADS-1:0] io_in;
-    wire [`MPRJ_IO_PADS-1:0] io_out;
-    wire [`MPRJ_IO_PADS-1:0] io_oeb;
+wire clk;
+wire rst;
 
-    wire [31:0] rdata; 
-    wire [31:0] wdata;
-    wire [BITS-1:0] count;
+wire [`MPRJ_IO_PADS-1:0] io_in;
+wire [`MPRJ_IO_PADS-1:0] io_out;
+wire [`MPRJ_IO_PADS-1:0] io_oeb;
+
+wire [31:0] rdata; 
+wire [31:0] wdata;
+wire [BITS-1:0] count;
 
     wire valid;
     wire [3:0] wstrb;
@@ -104,58 +106,56 @@ module user_proj_airisc #(
     assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
     assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
 
-    airi5c_top_asic DUT
-    (
-        .clk(clktree_root),
-        .nreset(~reset_sync),
-        .testmode(1'b0),    
-        .ext_interrupt(interrupt_sync),    
+airi5c_top_asic airi5c_top_asic (
+    .clk(clk),
+    .nreset(rst),
+    .testmode(1'b0),    
+    .ext_interrupt(interrupt_sync),    
     
-        .tck(tck),
-        .tms(tms),
-        .tdi(tdi),
-        .tdo(tdo),
+    .tck(tck),
+    .tms(tms),
+    .tdi(tdi),
+    .tdo(tdo),
 
-        .imem_haddr(imem_haddr),
-        .imem_hwrite(imem_hwrite),
-        .imem_hsize(imem_hsize),
-        .imem_hburst(imem_hburst),
-        .imem_hmastlock(imem_hmastlock),
-        .imem_hprot(imem_hprot),
-        .imem_htrans(imem_htrans),
-        .imem_hwdata(imem_hwdata),
-        .imem_hrdata(imem_hrdata),
-        .imem_hready(1'b1),
-        .imem_hresp(`HASTI_RESP_OKAY),
+    .imem_haddr(imem_haddr),
+    .imem_hwrite(imem_hwrite),
+    .imem_hsize(imem_hsize),
+    .imem_hburst(imem_hburst),
+    .imem_hmastlock(imem_hmastlock),
+    .imem_hprot(imem_hprot),
+    .imem_htrans(imem_htrans),
+    .imem_hwdata(imem_hwdata),
+    .imem_hrdata(imem_hrdata),
+    .imem_hready(1'b1),
+    .imem_hresp(`HASTI_RESP_OKAY),
     
-        .dmem_haddr(dmem_haddr),
-        .dmem_hwrite(dmem_hwrite),
-        .dmem_hsize(dmem_hsize),
-        .dmem_hburst(dmem_hburst),
-        .dmem_hmastlock(dmem_hmastlock),
-        .dmem_hprot(dmem_hprot),
-        .dmem_htrans(dmem_htrans),
-        .dmem_hwdata(dmem_hwdata),
-        .dmem_hrdata(dmem_hrdata_shifted),  
-        .dmem_hready(dmem_hready),
-        .dmem_hresp(`HASTI_RESP_OKAY),
+    .dmem_haddr(dmem_haddr),
+    .dmem_hwrite(dmem_hwrite),
+    .dmem_hsize(dmem_hsize),
+    .dmem_hburst(dmem_hburst),
+    .dmem_hmastlock(dmem_hmastlock),
+    .dmem_hprot(dmem_hprot),
+    .dmem_htrans(dmem_htrans),
+    .dmem_hwdata(dmem_hwdata),
+    .dmem_hrdata(dmem_hrdata_shifted),  
+    .dmem_hready(dmem_hready),
+    .dmem_hresp(`HASTI_RESP_OKAY),
        
-    
-        .oGPIO_D(gpio_d),
-        .oGPIO_EN(),
-        .iGPIO_I(gpio_i),
+    .oGPIO_D(gpio_d),
+    .oGPIO_EN(),
+    .iGPIO_I(gpio_i),
 
-        .oUART_TX(uart_tx),
-        .iUART_RX(uart_rx),
+    .oUART_TX(uart_tx),
+    .iUART_RX(uart_rx),
 
-        .oSPI1_MOSI(spi_mosi),
-        .oSPI1_SCLK(spi_sclk),
-        .oSPI1_NSS(spi_nss),
-        .iSPI1_MISO(spi_miso),
+    .oSPI1_MOSI(spi_mosi),
+    .oSPI1_SCLK(spi_sclk),
+    .oSPI1_NSS(spi_nss),
+    .iSPI1_MISO(spi_miso),
      
-        .debug_out(debug_out)
-    );
+    .debug_out(debug_out)
+);
 
-endmodule
+endmodule // ser_proj_airisc
 
 `default_nettype wire
