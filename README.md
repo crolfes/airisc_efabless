@@ -5,8 +5,8 @@
 | :exclamation: Important Note            |
 |-----------------------------------------|
 
-## Please fill in your project documentation in this README.md file 
+## AIRISC MPW8 Design
 
-Refer to [README](docs/source/index.rst#section-quickstart) for a quickstart of how to use caravel_user_project
+User project for the Fraunhofer IMS RISC-V core AIRISC. 
 
-Refer to [README](docs/source/index.rst) for this sample project documentation. 
+Refer to [Github Link](docs/source/index.rst#section-quickstarthttps://github.com/Fraunhofer-IMS/airisc_core_complex) for the source code of the 32-bit AIRISC core.
