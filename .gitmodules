@@ -1,3 +1,4 @@
 [submodule "verilog/airisc_core_complex"]
 	path = verilog/airisc_core_complex
-	url = https://github.com/Fraunhofer-IMS/airisc_core_complex.git
+	url = git@github.com:crolfes/airisc_core_complex.git
+	branch = efabless
